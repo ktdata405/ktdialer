@@ -2,40 +2,54 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 
 class AppTheme {
-  static ThemeData get lightTheme {
+  static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
+      brightness: Brightness.dark,
+      colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
-        error: AppColors.error,
-        surface: AppColors.surface,
+        surface: AppColors.background,
+        onSurface: Colors.white,
       ),
       scaffoldBackgroundColor: AppColors.background,
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.background,
         foregroundColor: Colors.white,
         elevation: 0,
+        centerTitle: false,
+        titleTextStyle: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
       textTheme: const TextTheme(
-        headlineMedium: TextStyle(
-          color: AppColors.textPrimary,
+        headlineLarge: TextStyle(
+          color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 24,
+          fontSize: 32,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.textPrimary,
-          fontSize: 16,
+          color: Colors.white,
+          fontSize: 18,
         ),
         bodyMedium: TextStyle(
-          color: AppColors.textSecondary,
+          color: Colors.white70,
           fontSize: 14,
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.callButton,
         foregroundColor: Colors.white,
+        shape: CircleBorder(),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.background,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white38,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
       ),
     );
   }

@@ -15,7 +15,7 @@
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <application
-        android:label="KT Dialer"
+        android:label="ktdialer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -58,7 +58,7 @@
 
         <!-- In-Call Service -->
         <service
-            android:name=".CallService"
+            android:name="com.example.ktdialer.CallService"
             android:permission="android.permission.BIND_INCALL_SERVICE"
             android:exported="true">
             <meta-data

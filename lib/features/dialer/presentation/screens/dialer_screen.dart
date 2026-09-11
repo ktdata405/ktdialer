@@ -1,60 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_strings.dart';
 import '../providers/dialer_provider.dart';
 import '../widgets/keypad_button.dart';
 
 class DialerScreen extends StatelessWidget {
-  const DialerScreen({super.key});
+  final VoidCallback onClose;
+  const DialerScreen({super.key, required this.onClose});
 
   @override
   Widget build(BuildContext context) {
     final dialerProvider = Provider.of<DialerProvider>(context);
 
-    return Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    dialerProvider.input,
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(AppStrings.recordOption),
-                    Switch(
-                      value: dialerProvider.isAutoRecordEnabled,
-                      onChanged: dialerProvider.toggleAutoRecord,
-                    ),
-                  ],
-                ),
-              ],
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xFF2C2C2C),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      padding: const EdgeInsets.only(bottom: 24, top: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Drag Handle
+          Container(
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white24,
+              borderRadius: BorderRadius.circular(2),
             ),
           ),
-        ),
-        Expanded(
-          flex: 6,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          const SizedBox(height: 16),
+          // Number Display
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            height: 60,
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                dialerProvider.input,
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          // Keypad
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: GridView.count(
               crossAxisCount: 3,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
+              childAspectRatio: 1.3,
               children: [
                 KeypadButton(label: '1', subLabel: '', onTap: () => dialerProvider.append('1')),
                 KeypadButton(label: '2', subLabel: 'ABC', onTap: () => dialerProvider.append('2')),
@@ -65,32 +66,47 @@ class DialerScreen extends StatelessWidget {
                 KeypadButton(label: '7', subLabel: 'PQRS', onTap: () => dialerProvider.append('7')),
                 KeypadButton(label: '8', subLabel: 'TUV', onTap: () => dialerProvider.append('8')),
                 KeypadButton(label: '9', subLabel: 'WXYZ', onTap: () => dialerProvider.append('9')),
-                KeypadButton(label: '*', subLabel: '', onTap: () => dialerProvider.append('*')),
+                KeypadButton(label: '*', subLabel: ',', onTap: () => dialerProvider.append('*')),
                 KeypadButton(label: '0', subLabel: '+', onTap: () => dialerProvider.append('0')),
-                KeypadButton(label: '#', subLabel: '', onTap: () => dialerProvider.append('#')),
+                KeypadButton(label: '#', subLabel: ';', onTap: () => dialerProvider.append('#')),
               ],
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 32.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(width: 64),
-              FloatingActionButton.large(
-                onPressed: dialerProvider.makeCall,
-                backgroundColor: AppColors.callButton,
-                child: const Icon(Icons.call, size: 40),
-              ),
-              IconButton(
-                onPressed: dialerProvider.delete,
-                icon: const Icon(Icons.backspace_outlined, size: 32, color: AppColors.textSecondary),
-              ),
-            ],
+          const SizedBox(height: 16),
+          // Bottom Actions
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Minimalist Grid Icon (representing recent/extra)
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.grid_view_rounded, color: Colors.white, size: 24),
+                ),
+                // Call Button
+                GestureDetector(
+                  onTap: dialerProvider.makeCall,
+                  child: Container(
+                    width: 72,
+                    height: 72,
+                    decoration: const BoxDecoration(
+                      color: AppColors.callButton,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.call, color: Colors.white, size: 36),
+                  ),
+                ),
+                // Backspace
+                IconButton(
+                  onPressed: dialerProvider.delete,
+                  icon: const Icon(Icons.backspace_outlined, color: Colors.white60, size: 24),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/url_launcher_helper.dart';
+import '../../../../core/services/call_service.dart';
 
 class DialerProvider with ChangeNotifier {
   String _input = '';
@@ -32,9 +32,7 @@ class DialerProvider with ChangeNotifier {
 
   Future<void> makeCall() async {
     if (_input.isNotEmpty) {
-      await UrlLauncherHelper.makeCall(_input);
-      // Here you would also add logic to start recording if _isAutoRecordEnabled is true
-      // and permissions are granted.
+      await CallService.placeCall(_input);
     }
   }
 }

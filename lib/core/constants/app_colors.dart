@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF2196F3);
-  static const Color secondary = Color(0xFF0D47A1);
-  static const Color background = Colors.white;
-  static const Color surface = Color(0xFFF5F5F5);
-  static const Color error = Color(0xFFD32F2F);
-  static const Color textPrimary = Color(0xFF212121);
-  static const Color textSecondary = Color(0xFF757575);
-  static const Color keypadBackground = Color(0xFFF0F0F0);
+  static const Color primary = Color(0xFF2E7D32); // Darker Green for FAB/Call
+  static const Color secondary = Color(0xFF66BB6A);
+  static const Color background = Colors.black;
+  static const Color surface = Color(0xFF1E1E1E);
+  static const Color error = Color(0xFFE53935);
+  static const Color textPrimary = Colors.white;
+  static const Color textSecondary = Colors.white70;
+  static const Color keypadBackground = Colors.transparent;
   static const Color callButton = Color(0xFF4CAF50);
+  static const Color divider = Colors.white12;
 }
